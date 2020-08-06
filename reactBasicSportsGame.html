@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React Basic Sports Game</title>
+    <script crossorigin src="https://unpkg.com/react@16.13.1/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@16.13.1/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6.26.0/babel.min.js"></script>
+</head>
+
+<body>
+
+    <div id="root"></div>
+
+    <script type="text/babel">
+
+
+        const App = (props) => {
+            return (
+                <div>
+                    <Team name="Orlando Magic" logo="orlando_magic_2011-pres.png" />
+                </div>
+            );
+        };
+
+
+
+        class Team extends React.Component {
+            constructor(props) {
+                super(props);
+
+                this.state = {
+                    score: 0,
+                    shotsTaken: 0
+                }
+            }
+
+
+            
+
+
+            render() {
+                return (
+                    <div>
+                        <h1>{this.props.name}</h1>
+                        <img src={this.props.logo} />
+                        <br />
+                        <button>Shoot</button>
+                        <h2>Shots Taken: {this.state.shotsTaken}</h2>
+                        <h2>Score: {this.state.score}</h2>
+                    </div>
+                );
+            }
+        }
+
+
+
+        ReactDOM.render(
+            <App />,
+            document.getElementById('root')
+        )
+    </script>
+
+</body>
+
+</html>
