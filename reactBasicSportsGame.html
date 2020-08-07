@@ -8,6 +8,23 @@
     <script crossorigin src="https://unpkg.com/react@16.13.1/umd/react.development.js"></script>
     <script crossorigin src="https://unpkg.com/react-dom@16.13.1/umd/react-dom.development.js"></script>
     <script src="https://unpkg.com/babel-standalone@6.26.0/babel.min.js"></script>
+    <style>
+        #root {
+            display: flex;
+            justify-content: space-around;
+        }
+        .team {
+            border: 5px solid black;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            border-radius: 5%;
+        }
+        .vs {
+            object-fit: none;;
+        }
+    </style>
 </head>
 
 <body>
@@ -19,9 +36,11 @@
 
         const App = (props) => {
             return (
-                <div>
-                    <Team name="Orlando Magic" logo="orlando_magic_2011-pres.png" />
-                </div>
+                <React.Fragment>
+                    <Team name="Orlando Magic" logo="orlando_magic_2011-pres.png"/>
+                    <img src="vs1.jpg" alt="versus clip art" className="vs"/>
+                    <Team name="Miami Heat" logo="miami_heat_2000-pres.png"/>
+                </React.Fragment>
             );
         };
 
@@ -37,20 +56,28 @@
                 }
             }
 
+            takeShot = (event) => {
+                this.setState(state => ({ shotsTaken: state.shotsTaken + 1 }));
+                let didScore = Math.floor(Math.random() * 2);
+                if (didScore === 1) {
+                    this.setState(state => ({ score: state.score + 1 }))
+                }
+            }
 
-            
 
 
             render() {
                 return (
-                    <div>
-                        <h1>{this.props.name}</h1>
-                        <img src={this.props.logo} />
-                        <br />
-                        <button>Shoot</button>
-                        <h2>Shots Taken: {this.state.shotsTaken}</h2>
-                        <h2>Score: {this.state.score}</h2>
-                    </div>
+                    <React.Fragment>
+                        <div className="team">
+                            <h1>{this.props.name}</h1>
+                            <img src={this.props.logo} />
+                            <br />
+                            <button onClick={this.takeShot}>Shoot</button>
+                            <h2>Shots Taken: {this.state.shotsTaken}</h2>
+                            <h2>Score: {this.state.score}</h2>
+                        </div>
+                    </React.Fragment>
                 );
             }
         }
