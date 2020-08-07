@@ -12,7 +12,10 @@
         #root {
             display: flex;
             justify-content: space-around;
+            height: 600px;
+            align-items: center;
         }
+
         .team {
             border: 5px solid black;
             padding: 20px;
@@ -20,9 +23,13 @@
             flex-direction: column;
             align-items: center;
             border-radius: 5%;
+            /* height: 500px; */
+            justify-content: center;
         }
+
         .vs {
-            object-fit: none;;
+            object-fit: none;
+            height: 300px;
         }
     </style>
 </head>
@@ -33,18 +40,26 @@
 
     <script type="text/babel">
 
+        let madeShot = new Audio('Swish+2.mp3')
+        let missedShot = new Audio('Back+Board.mp3')
 
         const App = (props) => {
-            return (
-                <React.Fragment>
-                    <Team name="Orlando Magic" logo="orlando_magic_2011-pres.png"/>
-                    <img src="vs1.jpg" alt="versus clip art" className="vs"/>
-                    <Team name="Miami Heat" logo="miami_heat_2000-pres.png"/>
-                </React.Fragment>
-            );
+                return (
+                    <Game />
+                );
         };
 
-
+        const Game = (props) => {
+            return (
+                <React.Fragment>
+                    <div><h1>HI</h1></div>
+                    
+                    <Team name="Orlando Magic" logo="orlando_magic_2011-pres.png" homeOrAway="Home Team" />
+                    <img src="vs1.jpg" alt="versus clip art" className="vs" />
+                    <Team name="Miami Heat" logo="miami_heat_2000-pres.png" homeOrAway="Away Team" />
+                </React.Fragment>
+            )
+        }
 
         class Team extends React.Component {
             constructor(props) {
@@ -52,17 +67,27 @@
 
                 this.state = {
                     score: 0,
-                    shotsTaken: 0
+                    shotsTaken: 0,
+                    shotPercent: null,
                 }
             }
+
+
 
             takeShot = (event) => {
                 this.setState(state => ({ shotsTaken: state.shotsTaken + 1 }));
                 let didScore = Math.floor(Math.random() * 2);
                 if (didScore === 1) {
-                    this.setState(state => ({ score: state.score + 1 }))
+                    this.setState(state => ({ score: state.score + 1 }));
+                    madeShot.play();
+                } else {
+                    missedShot.play();
                 }
+                let percentage = this.state.score / this.state.shotsTaken * 100;
+                this.setState(state => ({ shotPercent: 'FG: ' + (state.score / state.shotsTaken * 100).toFixed(2) + '%' }));
             }
+
+
 
 
 
@@ -70,12 +95,14 @@
                 return (
                     <React.Fragment>
                         <div className="team">
+                            <h3>{this.props.homeOrAway}</h3>
                             <h1>{this.props.name}</h1>
                             <img src={this.props.logo} />
                             <br />
                             <button onClick={this.takeShot}>Shoot</button>
-                            <h2>Shots Taken: {this.state.shotsTaken}</h2>
                             <h2>Score: {this.state.score}</h2>
+                            <h2>Shots Taken: {this.state.shotsTaken}</h2>
+                            <p>{this.state.shotPercent}</p>
                         </div>
                     </React.Fragment>
                 );
