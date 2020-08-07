@@ -10,10 +10,11 @@
     <script src="https://unpkg.com/babel-standalone@6.26.0/babel.min.js"></script>
     <style>
         #root {
-            display: flex;
-            justify-content: space-around;
+            display: grid;
+            /* justify-content: space-around;
             height: 600px;
-            align-items: center;
+            align-items: center; */
+            grid-template-columns: 33% 33% 33%;
         }
 
         .team {
@@ -27,9 +28,17 @@
             justify-content: center;
         }
 
+        .welcome {
+            grid-column-start: 1;
+            grid-column-end: 4;
+            justify-self: center;
+        }
+
         .vs {
             object-fit: none;
             height: 300px;
+            justify-self: center;
+            align-self: center;
         }
     </style>
 </head>
@@ -44,21 +53,25 @@
         let missedShot = new Audio('Back+Board.mp3')
 
         const App = (props) => {
-                return (
-                    <Game />
-                );
+            return (
+                <Game venue="The Amway Center"/>
+            );
         };
 
-        const Game = (props) => {
-            return (
-                <React.Fragment>
-                    <div><h1>HI</h1></div>
-                    
-                    <Team name="Orlando Magic" logo="orlando_magic_2011-pres.png" homeOrAway="Home Team" />
-                    <img src="vs1.jpg" alt="versus clip art" className="vs" />
-                    <Team name="Miami Heat" logo="miami_heat_2000-pres.png" homeOrAway="Away Team" />
-                </React.Fragment>
-            )
+        class Game extends React.Component {
+            constructor(props) {
+                super(props);
+            }
+            render() {
+                return (
+                    <React.Fragment>
+                        <h1 className="welcome" >Welcome to {this.props.venue}!</h1>
+                        <Team className="team1" name="Orlando Magic" logo="orlando_magic_2011-pres.png" homeOrAway="Home Team" />
+                        <img src="vs1.jpg" alt="versus clip art" className="vs" />
+                        <Team className="team2" name="Miami Heat" logo="miami_heat_2000-pres.png" homeOrAway="Away Team" />
+                    </React.Fragment>
+                )
+            }
         }
 
         class Team extends React.Component {
