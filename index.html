@@ -40,6 +40,9 @@
             justify-self: center;
             align-self: center;
         }
+        .reset-button {
+            justify-self: center;
+        }
     </style>
 </head>
 
@@ -69,6 +72,7 @@
                         <Team className="team1" name="Orlando Magic" logo="orlando_magic_2011-pres.png" homeOrAway="Home Team" />
                         <img src="vs1.jpg" alt="versus clip art" className="vs" />
                         <Team className="team2" name="Miami Heat" logo="miami_heat_2000-pres.png" homeOrAway="Away Team" />
+                        <button className="reset-button" onClick={() => window.location.reload()}>Reset Game</button>
                     </React.Fragment>
                 )
             }
